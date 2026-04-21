@@ -128,7 +128,7 @@ function sortGames(list: GameCard[], mode: ListSortMode): GameCard[] {
 const DEFAULT_SOULS_BACKLOG: GameCard[] = [
   {
     id: 'assassins-creed-origins',
-    title: 'Assassin's Creed Origins',
+    title: "Assassin's Creed Origins",
     subtitle: 'Ubisoft Montreal · 2017',
     tag: 'Action adventure',
     coverUrl: 'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fassassins-creed-origins%2Fdeluxe-edition%2FACH_UCS12002_EGST_BannerBundle_DLX_US_Store_Landscape_2560x1440-1920x1080-1cc5d95370b97e58bb64384448c5db24025701b3.jpg',
@@ -136,7 +136,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
   },
   {
     id: 'assassins-creed-shadows',
-    title: 'Assassin's Creed Shadows',
+    title: "Assassin's Creed Shadows",
     subtitle: 'Ubisoft Quebec · 2025',
     tag: 'Action adventure',
     coverUrl: 'https://image.api.playstation.com/vulcan/ap/rnd/202412/2018/f5a4f3f89d83a53b6ce319816637fb358e4880b7505ee37d.jpg',
@@ -144,7 +144,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
   },
   {
     id: 'assassins-creed-valhalla',
-    title: 'Assassin's Creed Valhalla',
+    title: "Assassin's Creed Valhalla",
     subtitle: 'Ubisoft Montreal · 2020',
     tag: 'Action adventure',
     coverUrl: 'https://image.api.playstation.com/vulcan/ap/rnd/202008/0723/i2ICFMr0Ius6qtYYD9GNrY68.jpg',
@@ -248,7 +248,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
   },
   {
     id: 'ghost-of-tsushima-dc',
-    title: 'Ghost of Tsushima: Director's Cut',
+    title: "Ghost of Tsushima: Director's Cut",
     subtitle: 'Sucker Punch · 2021',
     tag: 'Action adventure',
     coverUrl: 'https://cdn1.epicgames.com/offer/6e6aa039c73347b885803de65ac5d3db/EGS_GhostofTsushima_SuckerPunchProductions_S1_2560x1440-c33a63e5da4518de6e32299bedf7efab',
