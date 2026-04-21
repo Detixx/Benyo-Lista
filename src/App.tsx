@@ -7,37 +7,6 @@ const VIDEO_URL =
 const STORAGE_KEY = 'bagoly-souls-backlog'
 const SORT_STORAGE_KEY = 'bagoly-souls-sort'
 
-/** Lista állapotot kódol URL query paraméterbe */
-function encodeListState(games: GameCard[]): string {
-  const state = {
-    games: games.map((g) => ({
-      id: g.id,
-      completed: g.completed,
-      dlc: g.dlc?.map((d) => ({ id: d.id, completed: d.completed })),
-    })),
-  }
-  return encodeURIComponent(JSON.stringify(state))
-}
-
-/** URL query paraméterből dekódol lista állapotot */
-function decodeListState(encoded: string): Record<string, { completed: boolean; dlc?: Array<{ id: string; completed: boolean }> }> {
-  try {
-    const state = JSON.parse(decodeURIComponent(encoded))
-    if (state?.games && Array.isArray(state.games)) {
-      const map: Record<string, { completed: boolean; dlc?: Array<{ id: string; completed: boolean }> }> = {}
-      for (const g of state.games) {
-        if (g?.id && typeof g.completed === 'boolean') {
-          map[g.id] = { completed: g.completed, dlc: g.dlc }
-        }
-      }
-      return map
-    }
-  } catch {
-    /* ignore */
-  }
-  return {}
-}
-
 function LayeredPillLink({
   variant,
   href,
@@ -159,26 +128,23 @@ function sortGames(list: GameCard[], mode: ListSortMode): GameCard[] {
 const DEFAULT_SOULS_BACKLOG: GameCard[] = [
   {
     id: 'assassins-creed-origins',
-    title: "Assassin's Creed Origins",
+    title: 'Assassin’s Creed Origins',
     subtitle: 'Ubisoft Montreal · 2017',
     tag: 'Action adventure',
-    coverUrl: 'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fassassins-creed-origins%2Fdeluxe-edition%2FACH_UCS12002_EGST_BannerBundle_DLX_US_Store_Landscape_2560x1440-1920x1080-1cc5d95370b97e58bb64384448c5db24025701b3.jpg',
     completed: false,
   },
   {
     id: 'assassins-creed-shadows',
-    title: "Assassin's Creed Shadows",
+    title: 'Assassin’s Creed Shadows',
     subtitle: 'Ubisoft Quebec · 2025',
     tag: 'Action adventure',
-    coverUrl: 'https://image.api.playstation.com/vulcan/ap/rnd/202412/2018/f5a4f3f89d83a53b6ce319816637fb358e4880b7505ee37d.jpg',
     completed: false,
   },
   {
     id: 'assassins-creed-valhalla',
-    title: "Assassin's Creed Valhalla",
+    title: 'Assassin’s Creed Valhalla',
     subtitle: 'Ubisoft Montreal · 2020',
     tag: 'Action adventure',
-    coverUrl: 'https://image.api.playstation.com/vulcan/ap/rnd/202008/0723/i2ICFMr0Ius6qtYYD9GNrY68.jpg',
     completed: false,
   },
   {
@@ -186,7 +152,6 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Black Myth: Wukong',
     subtitle: 'Game Science · 2024',
     tag: 'ARPG',
-    coverUrl: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/f40ef565c380c617020e559b4b4b089edd93ec09/capsule_616x353.jpg?t=1760601605',
     completed: false,
   },
   {
@@ -194,7 +159,6 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Clair Obscur: Expedition 33',
     subtitle: 'Sandfall Interactive · 2025',
     tag: 'JRPG',
-    coverUrl: 'https://cdn1.epicgames.com/spt-assets/330dace5ffc74156987f91d454ac544b/project-w-1kt2x.jpg',
     completed: false,
   },
   {
@@ -202,7 +166,6 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Dark Souls II: Scholar of the First Sin',
     subtitle: 'FromSoftware · 2015',
     tag: 'Souls-like',
-    coverUrl: 'https://sm.ign.com/t/ign_hu/blogroll/p/ps4-xbox-o/ps4-xbox-one-get-6-player-dark-souls-ii-scholar-of_p7j2.1280.jpg',
     completed: false,
   },
   {
@@ -210,7 +173,6 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Dark Souls III',
     subtitle: 'FromSoftware · 2016',
     tag: 'Souls-like',
-    coverUrl: 'https://image.api.playstation.com/cdn/EP0700/CUSA03365_00/OFMeAw2KhrdaEZAjW1f3tCIXbogkLpTC.png',
     completed: false,
   },
   {
@@ -218,7 +180,6 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Dark Souls Remastered',
     subtitle: 'FromSoftware · 2018',
     tag: 'Souls-like',
-    coverUrl: 'https://www.gameagent.hu/wp-content/uploads/2021/11/DarkSoulsRemastered.jpg',
     completed: false,
   },
   {
@@ -226,7 +187,6 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Elden Ring',
     subtitle: 'FromSoftware · 2022',
     tag: 'Souls-like',
-    coverUrl: 'https://image.api.playstation.com/vulcan/img/rnd/202111/0506/hcFeWRVGHYK72uOw6Mn6f4Ms.jpg',
     completed: false,
   },
   {
@@ -234,7 +194,6 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Elden Ring: Nightreign',
     subtitle: 'FromSoftware · 2025',
     tag: 'Souls-like',
-    coverUrl: 'https://i.ytimg.com/vi/Djtsw5k_DNc/maxresdefault.jpg',
     completed: false,
   },
   {
@@ -242,7 +201,6 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Far Cry 4',
     subtitle: 'Ubisoft Montreal · 2014',
     tag: 'Open world FPS',
-    coverUrl: 'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Ffar-cry-4%2Fhome%2FFC4_STD_Store_Landscape_2580x1450-2580x1450-d1f404cc7a8404f24f511a0159d2874560e4b522.jpg',
     completed: false,
   },
   {
@@ -250,7 +208,6 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Far Cry 6',
     subtitle: 'Ubisoft Toronto · 2021',
     tag: 'Open world FPS',
-    coverUrl: 'https://image.api.playstation.com/vulcan/img/rnd/202012/1523/6u46KPccsyVwHVmSVGnNHETI.jpg',
     completed: false,
   },
   {
@@ -258,7 +215,6 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Far Cry Primal',
     subtitle: 'Ubisoft Montreal · 2016',
     tag: 'Open world FPS',
-    coverUrl: 'https://cdn1.epicgames.com/larkspur/offer/FCP_UCS17665_Store_Landscape_2560x1440-2560x1440-7d928100112e95b33030b81c65e632d3.jpg?resize=1&w=480&h=270&quality=medium',
     completed: false,
   },
   {
@@ -266,7 +222,6 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'The Elder Scrolls V: Skyrim — Special Edition',
     subtitle: 'Bethesda · 2016',
     tag: 'Open world RPG',
-    coverUrl: 'https://assets-prd.ignimgs.com/2021/08/19/elder-scrolls-skyrim-button-2017-1629409446732.jpg',
     completed: false,
   },
   {
@@ -274,15 +229,13 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'The First Berserker: Khazan',
     subtitle: 'Neople · 2025',
     tag: 'ARPG',
-    coverUrl: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2680010/77f0471fc4cb000cdf1e0c4e1da2e047217195fa/capsule_616x353.jpg?t=1765255716',
     completed: false,
   },
   {
     id: 'ghost-of-tsushima-dc',
-    title: "Ghost of Tsushima: Director's Cut",
+    title: 'Ghost of Tsushima: Director’s Cut',
     subtitle: 'Sucker Punch · 2021',
     tag: 'Action adventure',
-    coverUrl: 'https://cdn1.epicgames.com/offer/6e6aa039c73347b885803de65ac5d3db/EGS_GhostofTsushima_SuckerPunchProductions_S1_2560x1440-c33a63e5da4518de6e32299bedf7efab',
     completed: false,
   },
   {
@@ -290,7 +243,6 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Hades',
     subtitle: 'Supergiant Games · 2020',
     tag: 'Roguelike',
-    coverUrl: 'https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000033131/dbc8c55a21688b446a5c57711b726956483a14ef8c5ddb861f897c0595ccb6b5',
     completed: false,
   },
   {
@@ -298,7 +250,6 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Hades II',
     subtitle: 'Supergiant Games · 2025',
     tag: 'Roguelike',
-    coverUrl: 'https://i.ytimg.com/vi_webp/MawBCULz4vE/maxresdefault.webp',
     completed: false,
   },
   {
@@ -306,15 +257,13 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Hollow Knight',
     subtitle: 'Team Cherry · 2017',
     tag: 'Metroidvania',
-    coverUrl: 'https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000003208/4643fb058642335c523910f3a7910575f56372f612f7c0c9a497aaae978d3e51',
     completed: false,
   },
   {
     id: 'hollow-knight-silksong',
     title: 'Hollow Knight: Silksong',
-    subtitle: 'Team Cherry',
+    subtitle: 'Team Cherry · 2025',
     tag: 'Metroidvania',
-    coverUrl: 'https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch2/70010000105851/8787627be7f26ae7984456ffd9af17bea845032cebbf59fe6eeb596dea6bb20e',
     completed: false,
   },
   {
@@ -322,15 +271,13 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Sekiro: Shadows Die Twice',
     subtitle: 'FromSoftware · 2019',
     tag: 'Action',
-    coverUrl: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/814380/capsule_616x353.jpg?t=1762888662',
     completed: false,
   },
   {
     id: 'solo-leveling-arise-overdrive',
     title: 'Solo Leveling: Arise — Overdrive',
-    subtitle: 'Netmarble',
+    subtitle: 'Netmarble · 2025',
     tag: 'ARPG',
-    coverUrl: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2373990/076c85e9fccad9865b82d91e939f73a4a7314632/capsule_616x353.jpg?t=1773379045',
     completed: false,
   },
   {
@@ -338,7 +285,6 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Wuchang: Fallen Feathers',
     subtitle: 'Leenzee Games · 2025',
     tag: 'Souls-like',
-    coverUrl: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2277560/599d90f110b1f87e29b85d896f83783b961e9805/capsule_616x353.jpg?t=1770741955',
     completed: false,
   },
 ]
@@ -386,29 +332,6 @@ function mergeSavedWithCatalogDefaults(saved: GameCard[]): GameCard[] {
 
 function loadGames(): GameCard[] {
   try {
-    // Először próbáljuk meg az URL-ből betölteni a megosztott állapotot
-    const params = new URLSearchParams(window.location.search)
-    const sharedState = params.get('state')
-    if (sharedState) {
-      const stateMap = decodeListState(sharedState)
-      const games = DEFAULT_SOULS_BACKLOG.map(attachDefaultDlc)
-      // Alkalmazzuk a mentett állapotokat
-      for (const game of games) {
-        const state = stateMap[game.id]
-        if (state) {
-          game.completed = state.completed
-          if (state.dlc && game.dlc) {
-            for (const dlc of game.dlc) {
-              const savedDlc = state.dlc.find((d) => d.id === dlc.id)
-              if (savedDlc) dlc.completed = savedDlc.completed
-            }
-          }
-        }
-      }
-      return games
-    }
-
-    // Ha nincs URL állapot, töltse be a localStorage-ből
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) {
       const parsed = JSON.parse(raw) as unknown[]
@@ -493,76 +416,6 @@ const dlcExpandGridClass = (open: boolean) =>
   `grid overflow-hidden transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] motion-reduce:transition-none ${
     open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
   }`
-
-function ShareModal({
-  open,
-  games,
-  onClose,
-}: {
-  open: boolean
-  games: GameCard[]
-  onClose: () => void
-}) {
-  const shareUrl = `${window.location.origin}${window.location.pathname}?state=${encodeListState(games)}`
-  const [copied, setCopied] = useState(false)
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(shareUrl)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch {
-      window.alert('Nem sikerült a másolás.')
-    }
-  }
-
-  if (!open) return null
-
-  return (
-    <>
-      <div
-        className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
-        onClick={onClose}
-        aria-hidden
-      />
-      <div className="fixed left-1/2 top-1/2 z-50 max-w-sm -translate-x-1/2 -translate-y-1/2 transform rounded-2xl border border-white/20 bg-black/90 p-6 shadow-2xl"
-      >
-        <h2 className="text-xl font-semibold text-white">Publikálás</h2>
-        <p className="mt-2 text-sm text-white/60">
-          Megosztható link az aktuális lista állapotával
-        </p>
-
-        <div className="mt-4 flex flex-col gap-3">
-          <textarea
-            readOnly
-            value={shareUrl}
-            onClick={(e) => e.currentTarget.select()}
-            className="min-h-20 w-full resize-none rounded-lg border border-white/20 bg-white/[0.04] p-3 text-xs font-mono text-white outline-none"
-          />
-          <button
-            type="button"
-            onClick={handleCopy}
-            className={`rounded-lg px-4 py-2 font-medium transition ${
-              copied
-                ? 'bg-emerald-500/30 text-emerald-100'
-                : 'bg-white/15 text-white hover:bg-white/25'
-            }`}
-          >
-            {copied ? '✓ Másolva' : 'Másolás'}
-          </button>
-        </div>
-
-        <button
-          type="button"
-          onClick={onClose}
-          className="mt-4 w-full rounded-lg border border-white/15 bg-transparent py-2 text-sm text-white/60 transition hover:bg-white/5"
-        >
-          Bezárás
-        </button>
-      </div>
-    </>
-  )
-}
 
 function GameCardItem({
   game,
@@ -975,8 +828,7 @@ export default function App() {
   const [games, setGames] = useState<GameCard[]>(() => loadGames())
   const [sortMode, setSortMode] = useState<ListSortMode>(loadSortMode)
   const [editMode, setEditMode] = useState(false)
-  const [shareOpen, setShareOpen] = useState(false)
-  /** Első betöltésnél ne animáljon a lista; „Lista szerkesztése" után igen. */
+  /** Első betöltésnél ne animáljon a lista; „Lista szerkesztése” után igen. */
   const [listAnimEnabled, setListAnimEnabled] = useState(false)
 
   const [listRef] = useAutoAnimate({
@@ -1176,25 +1028,16 @@ export default function App() {
                   </button>
                 </>
               ) : (
-                <>
-                  <button
-                    type="button"
-                    onClick={() => setShareOpen(true)}
-                    className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-[13px] font-medium text-white/80 transition hover:bg-white/12 hover:text-white"
-                  >
-                    Publikálás
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setListAnimEnabled(true)
-                      setEditMode(true)
-                    }}
-                    className="rounded-full border border-white/30 bg-white/5 px-4 py-2 text-[13px] font-medium text-white transition hover:bg-white/12"
-                  >
-                    Lista szerkesztése
-                  </button>
-                </>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setListAnimEnabled(true)
+                    setEditMode(true)
+                  }}
+                  className="rounded-full border border-white/30 bg-white/5 px-4 py-2 text-[13px] font-medium text-white transition hover:bg-white/12"
+                >
+                  Lista szerkesztése
+                </button>
               )}
             </div>
           </div>
@@ -1258,7 +1101,6 @@ export default function App() {
           </ul>
         </div>
       </div>
-      <ShareModal open={shareOpen} games={games} onClose={() => setShareOpen(false)} />
     </div>
   )
 }
