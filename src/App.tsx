@@ -128,23 +128,26 @@ function sortGames(list: GameCard[], mode: ListSortMode): GameCard[] {
 const DEFAULT_SOULS_BACKLOG: GameCard[] = [
   {
     id: 'assassins-creed-origins',
-    title: 'Assassin’s Creed Origins',
+    title: 'Assassin's Creed Origins',
     subtitle: 'Ubisoft Montreal · 2017',
     tag: 'Action adventure',
+    coverUrl: 'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fassassins-creed-origins%2Fdeluxe-edition%2FACH_UCS12002_EGST_BannerBundle_DLX_US_Store_Landscape_2560x1440-1920x1080-1cc5d95370b97e58bb64384448c5db24025701b3.jpg',
     completed: false,
   },
   {
     id: 'assassins-creed-shadows',
-    title: 'Assassin’s Creed Shadows',
+    title: 'Assassin's Creed Shadows',
     subtitle: 'Ubisoft Quebec · 2025',
     tag: 'Action adventure',
+    coverUrl: 'https://image.api.playstation.com/vulcan/ap/rnd/202412/2018/f5a4f3f89d83a53b6ce319816637fb358e4880b7505ee37d.jpg',
     completed: false,
   },
   {
     id: 'assassins-creed-valhalla',
-    title: 'Assassin’s Creed Valhalla',
+    title: 'Assassin's Creed Valhalla',
     subtitle: 'Ubisoft Montreal · 2020',
     tag: 'Action adventure',
+    coverUrl: 'https://image.api.playstation.com/vulcan/ap/rnd/202008/0723/i2ICFMr0Ius6qtYYD9GNrY68.jpg',
     completed: false,
   },
   {
@@ -152,6 +155,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Black Myth: Wukong',
     subtitle: 'Game Science · 2024',
     tag: 'ARPG',
+    coverUrl: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/f40ef565c380c617020e559b4b4b089edd93ec09/capsule_616x353.jpg?t=1760601605',
     completed: false,
   },
   {
@@ -159,6 +163,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Clair Obscur: Expedition 33',
     subtitle: 'Sandfall Interactive · 2025',
     tag: 'JRPG',
+    coverUrl: 'https://cdn1.epicgames.com/spt-assets/330dace5ffc74156987f91d454ac544b/project-w-1kt2x.jpg',
     completed: false,
   },
   {
@@ -166,6 +171,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Dark Souls II: Scholar of the First Sin',
     subtitle: 'FromSoftware · 2015',
     tag: 'Souls-like',
+    coverUrl: 'https://sm.ign.com/t/ign_hu/blogroll/p/ps4-xbox-o/ps4-xbox-one-get-6-player-dark-souls-ii-scholar-of_p7j2.1280.jpg',
     completed: false,
   },
   {
@@ -173,6 +179,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Dark Souls III',
     subtitle: 'FromSoftware · 2016',
     tag: 'Souls-like',
+    coverUrl: 'https://image.api.playstation.com/cdn/EP0700/CUSA03365_00/OFMeAw2KhrdaEZAjW1f3tCIXbogkLpTC.png',
     completed: false,
   },
   {
@@ -180,6 +187,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Dark Souls Remastered',
     subtitle: 'FromSoftware · 2018',
     tag: 'Souls-like',
+    coverUrl: 'https://www.gameagent.hu/wp-content/uploads/2021/11/DarkSoulsRemastered.jpg',
     completed: false,
   },
   {
@@ -187,6 +195,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Elden Ring',
     subtitle: 'FromSoftware · 2022',
     tag: 'Souls-like',
+    coverUrl: 'https://image.api.playstation.com/vulcan/img/rnd/202111/0506/hcFeWRVGHYK72uOw6Mn6f4Ms.jpg',
     completed: false,
   },
   {
@@ -194,6 +203,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Elden Ring: Nightreign',
     subtitle: 'FromSoftware · 2025',
     tag: 'Souls-like',
+    coverUrl: 'https://i.ytimg.com/vi/Djtsw5k_DNc/maxresdefault.jpg',
     completed: false,
   },
   {
@@ -201,6 +211,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Far Cry 4',
     subtitle: 'Ubisoft Montreal · 2014',
     tag: 'Open world FPS',
+    coverUrl: 'https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Ffar-cry-4%2Fhome%2FFC4_STD_Store_Landscape_2580x1450-2580x1450-d1f404cc7a8404f24f511a0159d2874560e4b522.jpg',
     completed: false,
   },
   {
@@ -208,6 +219,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Far Cry 6',
     subtitle: 'Ubisoft Toronto · 2021',
     tag: 'Open world FPS',
+    coverUrl: 'https://image.api.playstation.com/vulcan/img/rnd/202012/1523/6u46KPccsyVwHVmSVGnNHETI.jpg',
     completed: false,
   },
   {
@@ -215,6 +227,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Far Cry Primal',
     subtitle: 'Ubisoft Montreal · 2016',
     tag: 'Open world FPS',
+    coverUrl: 'https://cdn1.epicgames.com/larkspur/offer/FCP_UCS17665_Store_Landscape_2560x1440-2560x1440-7d928100112e95b33030b81c65e632d3.jpg?resize=1&w=480&h=270&quality=medium',
     completed: false,
   },
   {
@@ -222,6 +235,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'The Elder Scrolls V: Skyrim — Special Edition',
     subtitle: 'Bethesda · 2016',
     tag: 'Open world RPG',
+    coverUrl: 'https://assets-prd.ignimgs.com/2021/08/19/elder-scrolls-skyrim-button-2017-1629409446732.jpg',
     completed: false,
   },
   {
@@ -229,13 +243,15 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'The First Berserker: Khazan',
     subtitle: 'Neople · 2025',
     tag: 'ARPG',
+    coverUrl: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2680010/77f0471fc4cb000cdf1e0c4e1da2e047217195fa/capsule_616x353.jpg?t=1765255716',
     completed: false,
   },
   {
     id: 'ghost-of-tsushima-dc',
-    title: 'Ghost of Tsushima: Director’s Cut',
+    title: 'Ghost of Tsushima: Director's Cut',
     subtitle: 'Sucker Punch · 2021',
     tag: 'Action adventure',
+    coverUrl: 'https://cdn1.epicgames.com/offer/6e6aa039c73347b885803de65ac5d3db/EGS_GhostofTsushima_SuckerPunchProductions_S1_2560x1440-c33a63e5da4518de6e32299bedf7efab',
     completed: false,
   },
   {
@@ -243,6 +259,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Hades',
     subtitle: 'Supergiant Games · 2020',
     tag: 'Roguelike',
+    coverUrl: 'https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000033131/dbc8c55a21688b446a5c57711b726956483a14ef8c5ddb861f897c0595ccb6b5',
     completed: false,
   },
   {
@@ -250,6 +267,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Hades II',
     subtitle: 'Supergiant Games · 2025',
     tag: 'Roguelike',
+    coverUrl: 'https://i.ytimg.com/vi_webp/MawBCULz4vE/maxresdefault.webp',
     completed: false,
   },
   {
@@ -257,13 +275,15 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Hollow Knight',
     subtitle: 'Team Cherry · 2017',
     tag: 'Metroidvania',
+    coverUrl: 'https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000003208/4643fb058642335c523910f3a7910575f56372f612f7c0c9a497aaae978d3e51',
     completed: false,
   },
   {
     id: 'hollow-knight-silksong',
     title: 'Hollow Knight: Silksong',
-    subtitle: 'Team Cherry · 2025',
+    subtitle: 'Team Cherry',
     tag: 'Metroidvania',
+    coverUrl: 'https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch2/70010000105851/8787627be7f26ae7984456ffd9af17bea845032cebbf59fe6eeb596dea6bb20e',
     completed: false,
   },
   {
@@ -271,13 +291,15 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Sekiro: Shadows Die Twice',
     subtitle: 'FromSoftware · 2019',
     tag: 'Action',
+    coverUrl: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/814380/capsule_616x353.jpg?t=1762888662',
     completed: false,
   },
   {
     id: 'solo-leveling-arise-overdrive',
     title: 'Solo Leveling: Arise — Overdrive',
-    subtitle: 'Netmarble · 2025',
+    subtitle: 'Netmarble',
     tag: 'ARPG',
+    coverUrl: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2373990/076c85e9fccad9865b82d91e939f73a4a7314632/capsule_616x353.jpg?t=1773379045',
     completed: false,
   },
   {
@@ -285,6 +307,7 @@ const DEFAULT_SOULS_BACKLOG: GameCard[] = [
     title: 'Wuchang: Fallen Feathers',
     subtitle: 'Leenzee Games · 2025',
     tag: 'Souls-like',
+    coverUrl: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2277560/599d90f110b1f87e29b85d896f83783b961e9805/capsule_616x353.jpg?t=1770741955',
     completed: false,
   },
 ]
