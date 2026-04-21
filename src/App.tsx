@@ -7,6 +7,37 @@ const VIDEO_URL =
 const STORAGE_KEY = 'bagoly-souls-backlog'
 const SORT_STORAGE_KEY = 'bagoly-souls-sort'
 
+/** Lista állapotot kódol URL query paraméterbe */
+function encodeListState(games: GameCard[]): string {
+  const state = {
+    games: games.map((g) => ({
+      id: g.id,
+      completed: g.completed,
+      dlc: g.dlc?.map((d) => ({ id: d.id, completed: d.completed })),
+    })),
+  }
+  return encodeURIComponent(JSON.stringify(state))
+}
+
+/** URL query paraméterből dekódol lista állapotot */
+function decodeListState(encoded: string): Record<string, { completed: boolean; dlc?: Array<{ id: string; completed: boolean }> }> {
+  try {
+    const state = JSON.parse(decodeURIComponent(encoded))
+    if (state?.games && Array.isArray(state.games)) {
+      const map: Record<string, { completed: boolean; dlc?: Array<{ id: string; completed: boolean }> }> = {}
+      for (const g of state.games) {
+        if (g?.id && typeof g.completed === 'boolean') {
+          map[g.id] = { completed: g.completed, dlc: g.dlc }
+        }
+      }
+      return map
+    }
+  } catch {
+    /* ignore */
+  }
+  return {}
+}
+
 function LayeredPillLink({
   variant,
   href,
@@ -355,6 +386,29 @@ function mergeSavedWithCatalogDefaults(saved: GameCard[]): GameCard[] {
 
 function loadGames(): GameCard[] {
   try {
+    // Először próbáljuk meg az URL-ből betölteni a megosztott állapotot
+    const params = new URLSearchParams(window.location.search)
+    const sharedState = params.get('state')
+    if (sharedState) {
+      const stateMap = decodeListState(sharedState)
+      const games = DEFAULT_SOULS_BACKLOG.map(attachDefaultDlc)
+      // Alkalmazzuk a mentett állapotokat
+      for (const game of games) {
+        const state = stateMap[game.id]
+        if (state) {
+          game.completed = state.completed
+          if (state.dlc && game.dlc) {
+            for (const dlc of game.dlc) {
+              const savedDlc = state.dlc.find((d) => d.id === dlc.id)
+              if (savedDlc) dlc.completed = savedDlc.completed
+            }
+          }
+        }
+      }
+      return games
+    }
+
+    // Ha nincs URL állapot, töltse be a localStorage-ből
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) {
       const parsed = JSON.parse(raw) as unknown[]
@@ -439,6 +493,76 @@ const dlcExpandGridClass = (open: boolean) =>
   `grid overflow-hidden transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] motion-reduce:transition-none ${
     open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
   }`
+
+function ShareModal({
+  open,
+  games,
+  onClose,
+}: {
+  open: boolean
+  games: GameCard[]
+  onClose: () => void
+}) {
+  const shareUrl = `${window.location.origin}${window.location.pathname}?state=${encodeListState(games)}`
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      window.alert('Nem sikerült a másolás.')
+    }
+  }
+
+  if (!open) return null
+
+  return (
+    <>
+      <div
+        className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+        aria-hidden
+      />
+      <div className="fixed left-1/2 top-1/2 z-50 max-w-sm -translate-x-1/2 -translate-y-1/2 transform rounded-2xl border border-white/20 bg-black/90 p-6 shadow-2xl"
+      >
+        <h2 className="text-xl font-semibold text-white">Publikálás</h2>
+        <p className="mt-2 text-sm text-white/60">
+          Megosztható link az aktuális lista állapotával
+        </p>
+
+        <div className="mt-4 flex flex-col gap-3">
+          <textarea
+            readOnly
+            value={shareUrl}
+            onClick={(e) => e.currentTarget.select()}
+            className="min-h-20 w-full resize-none rounded-lg border border-white/20 bg-white/[0.04] p-3 text-xs font-mono text-white outline-none"
+          />
+          <button
+            type="button"
+            onClick={handleCopy}
+            className={`rounded-lg px-4 py-2 font-medium transition ${
+              copied
+                ? 'bg-emerald-500/30 text-emerald-100'
+                : 'bg-white/15 text-white hover:bg-white/25'
+            }`}
+          >
+            {copied ? '✓ Másolva' : 'Másolás'}
+          </button>
+        </div>
+
+        <button
+          type="button"
+          onClick={onClose}
+          className="mt-4 w-full rounded-lg border border-white/15 bg-transparent py-2 text-sm text-white/60 transition hover:bg-white/5"
+        >
+          Bezárás
+        </button>
+      </div>
+    </>
+  )
+}
 
 function GameCardItem({
   game,
@@ -851,7 +975,8 @@ export default function App() {
   const [games, setGames] = useState<GameCard[]>(() => loadGames())
   const [sortMode, setSortMode] = useState<ListSortMode>(loadSortMode)
   const [editMode, setEditMode] = useState(false)
-  /** Első betöltésnél ne animáljon a lista; „Lista szerkesztése” után igen. */
+  const [shareOpen, setShareOpen] = useState(false)
+  /** Első betöltésnél ne animáljon a lista; „Lista szerkesztése" után igen. */
   const [listAnimEnabled, setListAnimEnabled] = useState(false)
 
   const [listRef] = useAutoAnimate({
@@ -1051,16 +1176,25 @@ export default function App() {
                   </button>
                 </>
               ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setListAnimEnabled(true)
-                    setEditMode(true)
-                  }}
-                  className="rounded-full border border-white/30 bg-white/5 px-4 py-2 text-[13px] font-medium text-white transition hover:bg-white/12"
-                >
-                  Lista szerkesztése
-                </button>
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setShareOpen(true)}
+                    className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-[13px] font-medium text-white/80 transition hover:bg-white/12 hover:text-white"
+                  >
+                    Publikálás
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setListAnimEnabled(true)
+                      setEditMode(true)
+                    }}
+                    className="rounded-full border border-white/30 bg-white/5 px-4 py-2 text-[13px] font-medium text-white transition hover:bg-white/12"
+                  >
+                    Lista szerkesztése
+                  </button>
+                </>
               )}
             </div>
           </div>
@@ -1124,6 +1258,7 @@ export default function App() {
           </ul>
         </div>
       </div>
+      <ShareModal open={shareOpen} games={games} onClose={() => setShareOpen(false)} />
     </div>
   )
 }
