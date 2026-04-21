@@ -1,0 +1,55 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'General Sans', ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: #000000;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes card-mode-enter {
+    from {
+      opacity: 0;
+      transform: translateY(0.65rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes toolbar-mode-enter {
+    from {
+      opacity: 0;
+      transform: translateY(-0.4rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-card-mode-enter {
+    animation: card-mode-enter 0.48s cubic-bezier(0.33, 1, 0.68, 1) both;
+  }
+
+  .animate-toolbar-mode-enter {
+    animation: toolbar-mode-enter 0.38s cubic-bezier(0.33, 1, 0.68, 1) both;
+  }
+}
